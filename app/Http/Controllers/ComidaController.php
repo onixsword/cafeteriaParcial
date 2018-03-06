@@ -19,11 +19,15 @@ class ComidaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $comidas = \App\Comida::all();
         $argumentos = array();
+
+        $exito = $request->input('exito');
+
         $argumentos["comidas"] = $comidas;
+        $argumentos["exito"] = $exito;
         return view("comidas.index", $argumentos);
     }
 
@@ -34,7 +38,8 @@ class ComidaController extends Controller
      */
     public function create()
     {
-        //
+        $argumentos = array();
+        return view('comidas.create', $argumentos);
     }
 
     /**
@@ -45,7 +50,22 @@ class ComidaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $nombre = $request->input('txtNombre');
+        $precio = $request->input('txtPrecio');
+
+        $nuevaComida = new \App\Comida;
+        $nuevaComida->nombre = $nombre;
+        $nuevaComida->precio = $precio;
+
+        $respuesta = array();
+        $respuesta["exito"] = false;
+        if ($nuevaComida->save()) {
+            $respuesta["exito"] = true;
+        }
+
+        return redirect()->route('comidas.index',$respuesta);
+
+        
     }
 
     /**
@@ -67,7 +87,13 @@ class ComidaController extends Controller
      */
     public function edit($id)
     {
-        //
+        $comida = \App\Comida::find($id);
+
+        $argumentos = array();
+        $argumentos['comida'] = $comida;
+
+        return view('comidas.edit',$argumentos);
+
     }
 
     /**

@@ -8,7 +8,16 @@
 </head>
 <body>
     <h1>Comidas</h1>
-    <button>Agregar comida</button>
+    @if($exito != null)
+        @if($exito == 1)
+            <p>Se ha agregado una comida</p>
+        @else
+            <p>No se ha podido agregar comida</p>
+        @endif
+    @endif
+    <a href="{{route('comidas.create')}}">
+        <button>Agregar comida</button>
+    </a>
     <table>
         <thead>
             <tr>
