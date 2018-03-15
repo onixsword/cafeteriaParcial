@@ -14,7 +14,16 @@
         @else
             <p>No se ha podido agregar comida</p>
         @endif
-    @endif
+    @endif 
+    
+    @if($borrado != null)
+        @if($borrado == 1)
+            <p>Se ha borrado una comida</p>
+        @else
+            <p>No se ha podido borrar comida</p>
+        @endif
+    @endif 
+    
     <a href="{{route('comidas.create')}}">
         <button>Agregar comida</button>
     </a>
@@ -31,7 +40,11 @@
                 <tr>
                     <td>{{$comida->nombre}}</td>
                     <td>{{$comida->precio}}</td>
-                    <td><button>Editar</button></td>
+                    <td>
+                        <a href="{{route('comidas.edit',$comida->id)}}">
+                            <button>Editar</button>
+                        </a>
+                    </td>
                 </tr>
             @endforeach
         </tbody>
