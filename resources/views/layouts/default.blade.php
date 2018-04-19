@@ -59,16 +59,18 @@
               </div>
             </div>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#general-pages" aria-expanded="false" aria-controls="general-pages"> <img class="menu-icon" src="/images/menu_icons/08.png" alt="menu icon"> <span class="menu-title">Administración gral</span><i class="menu-arrow"></i></a>
-            <div class="collapse" id="general-pages">
-              <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="{{route('comidas.index')}}">Comidas</a></li>
-                <li class="nav-item"> <a class="nav-link" href="#">Usuarios</a></li>
-                
-              </ul>
-            </div>
-          </li>
+          @if(Auth::user()->idTipoUsuario == 1)
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="collapse" href="#general-pages" aria-expanded="false" aria-controls="general-pages"> <img class="menu-icon" src="/images/menu_icons/08.png" alt="menu icon"> <span class="menu-title">Administración gral</span><i class="menu-arrow"></i></a>
+              <div class="collapse" id="general-pages">
+                <ul class="nav flex-column sub-menu">
+                  <li class="nav-item"> <a class="nav-link" href="{{route('comidas.index')}}">Comidas</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="{{route('usuarios.index')}}">Usuarios</a></li>
+                  
+                </ul>
+              </div>
+            </li>
+          @endif
           </ul>
       </nav>
       <!-- partial -->
@@ -109,6 +111,7 @@
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB5NXz9eVnyJOA81wimI8WYE08kW_JMe8g&callback=initMap" async defer></script>
   <script src="/js/maps.js"></script>
   <!-- End custom js for this page-->
+  @yield('customscripts')
 </body>
 
 </html>

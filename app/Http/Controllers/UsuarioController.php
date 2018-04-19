@@ -8,6 +8,12 @@ use App\Http\Requests;
 
 class UsuarioController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +21,15 @@ class UsuarioController extends Controller
      */
     public function index()
     {
-        //
+        $usuarios = \App\User::all();
+        $tiposUsuario = \App\TipoUsuario::all()->pluck('descripcion','id');
+
+        $argumentos = array();
+        $argumentos["usuarios"] = $usuarios;
+        $argumentos["tiposUsuario"] = $tiposUsuario;
+
+        return view('usuarios.index',$argumentos);
+
     }
 
     /**
@@ -25,7 +39,12 @@ class UsuarioController extends Controller
      */
     public function create()
     {
-        //
+        $tiposUsuario = \App\TipoUsuario::all();
+
+        $argumentos = array();
+        $argumentos["tiposUsuario"] = $tiposUsuario;
+
+        return view('usuarios.create', $argumentos);
     }
 
     /**
@@ -36,7 +55,24 @@ class UsuarioController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //Obtener inputs
+        $correo = $request->input('correo');
+        $password = $request->input('password');
+        $tipoUsuario = $request->input('tipoUsuario');
+
+        //Crear nuevo registro
+        $nuevoUsuario = new \App\User;
+        $nuevoUsuario->email = $correo;
+        $nuevoUsuario->idTipoUsuario = $tipoUsuario;
+        $nuevoUsuario->password = bcrypt($password);
+
+        $respuesta = array();
+        $respuesta["exito"] = false;
+        if ($nuevoUsuario->save()) {
+            $respuesta["exito"] = true;
+        }
+
+        return redirect()->route('usuarios.index',$respuesta);
     }
 
     /**

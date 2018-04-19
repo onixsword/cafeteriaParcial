@@ -21,16 +21,19 @@ class ComidaController extends Controller
      */
     public function index(Request $request)
     {
-        $comidas = \App\Comida::all();
-        $argumentos = array();
-
-        $exito = $request->input('exito');
-        $borrado = $request->input('borrado');
-
-        $argumentos["comidas"] = $comidas;
-        $argumentos["exito"] = $exito;
-        $argumentos["borrado"] = $borrado;
-        return view("comidas.index", $argumentos);
+        $usuario = $request->user();
+        if($usuario->idTipoUsuario == 1) {
+            $comidas = \App\Comida::all();
+            $argumentos = array();
+            $exito = $request->input('exito');
+            $borrado = $request->input('borrado');
+            $argumentos["comidas"] = $comidas;
+            $argumentos["exito"] = $exito;
+            $argumentos["borrado"] = $borrado;
+            return view("comidas.index", $argumentos);
+        } else {
+            return redirect()->route('index');
+        }   
     }
 
     /**
