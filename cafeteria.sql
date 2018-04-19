@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 17-04-2018 a las 01:32:50
+-- Tiempo de generación: 19-04-2018 a las 00:49:16
 -- Versión del servidor: 5.6.38
 -- Versión de PHP: 7.2.1
 
@@ -93,7 +93,7 @@ INSERT INTO `tipoUsuario` (`id`, `descripcion`) VALUES
 CREATE TABLE `users` (
   `id` int(10) UNSIGNED NOT NULL,
   `idTipoUsuario` int(11) NOT NULL DEFAULT '1',
-  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `password` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `remember_token` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -106,7 +106,10 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `idTipoUsuario`, `name`, `email`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 1, 'Emiliano', 'emiliano@correo.com', '$2y$10$kxEHxdfcAxboShoKaMfsCuRq0pK/Wrc9WdQ4buPlL4et1KAD.iBDu', '3PkXg4PqJxIKxotkB1k1axaGVvQCWZLYC41czpNTQ2K2GXDfDNvnVl7VE3wv', '2018-03-01 06:36:30', '2018-04-17 08:11:29');
+(1, 1, 'Emiliano', 'emiliano@correo.com', '$2y$10$kxEHxdfcAxboShoKaMfsCuRq0pK/Wrc9WdQ4buPlL4et1KAD.iBDu', 'FaPCXBQJQYY6MPff3tzPuBBkt51Syf7qa2vUb6Pm6m68TK3ZK6e1krfcNImQ', '2018-03-01 06:36:30', '2018-04-19 07:19:27'),
+(2, 1, NULL, 'nuevo@correo.com', '$2y$10$YU.Sa/wc7krfkfbrxA2uw.jn7WQDs4oZ0BSjWGhsJs/ut54wg/ANa', 'JfPMNoAGuhlEeetjHwi2rPlgHg9rmspNZiLCEPf8Br2dzEMO9i95RXTZyNzA', '2018-04-19 07:07:23', '2018-04-19 07:07:58'),
+(3, 2, NULL, 'cliente@correo.com', '$2y$10$ZLF1Bt6/Wy.iGS4r2/EwQe0FF2LBTbT.oJX6RYq1gmrgqC0U4s56a', 'cqxETyVB3QK2w5ZqVc8lsNWFno6rfhSztInmvTAk2ex1p8n5hKYUmBsSC2Xi', '2018-04-19 07:15:10', '2018-04-19 07:25:33'),
+(4, 2, NULL, 'usuario@correo.com', '$2y$10$MfhFvPRe76xiPOCLx9Hbh.jwaOU2rWBWhsoThD1YJLl9dYL/NVy3S', NULL, '2018-04-19 07:46:48', '2018-04-19 07:46:48');
 
 --
 -- Índices para tablas volcadas
@@ -159,7 +162,7 @@ ALTER TABLE `tipoUsuario`
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Restricciones para tablas volcadas
