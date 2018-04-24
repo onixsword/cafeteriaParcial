@@ -71,6 +71,18 @@
               </div>
             </li>
           @endif
+          @if(Auth::user()->idTipoUsuario == 2)
+          <li class="nav-item">
+              <a class="nav-link" data-toggle="collapse" href="#general-pages" aria-expanded="false" aria-controls="general-pages"> <img class="menu-icon" src="/images/menu_icons/08.png" alt="menu icon"> <span class="menu-title">Pedidos</span><i class="menu-arrow"></i></a>
+              <div class="collapse" id="general-pages">
+                <ul class="nav flex-column sub-menu">
+                  <li class="nav-item"> <a class="nav-link" href="{{route('pedidos.index')}}">Historial de pedidos</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="{{route('pedidos.create')}}">Crear pedido</a></li>
+                  
+                </ul>
+              </div>
+            </li>
+          @endif
           </ul>
       </nav>
       <!-- partial -->

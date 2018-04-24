@@ -17,3 +17,4 @@ Route::get('/', ["uses" => 'HomeController@index', 'as' => 'index']);
 
 Route::resource('usuarios', 'UsuarioController');
 Route::resource('comidas', 'ComidaController');
+Route::resource('pedidos','PedidoController');
