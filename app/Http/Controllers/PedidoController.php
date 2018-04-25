@@ -39,7 +39,10 @@ class PedidoController extends Controller
      */
     public function create()
     {
-        //
+        $comidas = \App\Comida::all();
+        $argumentos = array();
+        $argumentos['comidas'] = $comidas;
+        return view('pedidos.create', $argumentos);
     }
 
     /**
