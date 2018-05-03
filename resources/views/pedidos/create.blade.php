@@ -1,7 +1,8 @@
 @extends('layouts.default')
 @section('content')
     <h1>Crear pedido</h1>
-        <form>
+        <form method="POST" action="{{route('pedidos.store')}}">
+            {{csrf_field()}}
             <div class="form-group">
                 <div class="row">
                     <div class="col-md-1">
@@ -10,7 +11,7 @@
                     <div class="col-md-10">
                         <select id="slcComida" class="form-control">
                             @foreach($comidas as $comida)
-                                <option precio="{{$comida->precio}}" value="{{$comida->id}}">{{$comida->nombre}}</option>
+                                <option precio="{{$comida->precio}}" idComida="{{$comida->id}}" value="{{$comida->id}}">{{$comida->nombre}}</option>
                             @endforeach
                         </select>
                     </div>
@@ -33,7 +34,22 @@
                             <tbody>
 
                             </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th></th>
+                                    <th></th>
+                                    <th>Total</th>
+                                    <td id="cellTotal">0.00</td>
+                                    <th></th>
+                                </tr>
+                            </tfoot>
                         </table>
+                        <input type="hidden" name="hdTotal" id="hdTotal" value="0">
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <button class="btn btn-primary" type="submit">Enviar pedido</button>
+                        </div>
                     </div>
                 </div>
             </div>
