@@ -80,12 +80,15 @@ class PedidoController extends Controller
                     $cantidades[$indice];
                 $nuevoElementoPedido->subtotal =
                     $subtotales[$indice];
-                
+                    
+                $nuevoElementoPedido->save();
+                $indice++;
             }
         } else {
             //armar un mensaje de error para decirle al
             //usuario que no se pudo grabar
         }
+        return redirect()->route('pedidos.index');
     }
 
     /**
