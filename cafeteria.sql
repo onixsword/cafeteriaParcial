@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 24-04-2018 a las 01:46:12
+-- Tiempo de generación: 10-05-2018 a las 00:48:50
 -- Versión del servidor: 5.6.38
 -- Versión de PHP: 7.2.1
 
@@ -50,6 +50,18 @@ CREATE TABLE `elementosPedido` (
   `subtotal` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Volcado de datos para la tabla `elementosPedido`
+--
+
+INSERT INTO `elementosPedido` (`id`, `idPedido`, `idComida`, `nombreComida`, `precioComida`, `cantidad`, `subtotal`) VALUES
+(1, 1, 1, 'Orden de burritos', 22, 1, 22),
+(2, 1, 2, 'Molletes', 40, 2, 80),
+(3, 2, 1, 'Orden de burritos', 22, 4, 88),
+(4, 2, 2, 'Molletes', 40, 3, 120),
+(5, 3, 1, 'Orden de burritos', 22, 2, 44),
+(6, 3, 2, 'Molletes', 40, 4, 160);
+
 -- --------------------------------------------------------
 
 --
@@ -58,18 +70,19 @@ CREATE TABLE `elementosPedido` (
 
 CREATE TABLE `estadosPedido` (
   `id` int(11) NOT NULL,
-  `descripción` varchar(255) NOT NULL
+  `descripcion` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `estadosPedido`
 --
 
-INSERT INTO `estadosPedido` (`id`, `descripción`) VALUES
+INSERT INTO `estadosPedido` (`id`, `descripcion`) VALUES
 (1, 'Recibido'),
 (2, 'En preparación'),
 (3, 'Listo para entregar'),
-(4, 'Entregado');
+(4, 'Entregado'),
+(5, 'Cancelado');
 
 -- --------------------------------------------------------
 
@@ -116,6 +129,15 @@ CREATE TABLE `pedidos` (
   `total` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Volcado de datos para la tabla `pedidos`
+--
+
+INSERT INTO `pedidos` (`id`, `idUsuario`, `idEstadoPedido`, `fecha`, `total`) VALUES
+(1, 3, 1, '2018-05-09 15:52:15', 102),
+(2, 3, 1, '2018-05-09 15:53:36', 208),
+(3, 7, 1, '2018-05-09 16:19:15', 204);
+
 -- --------------------------------------------------------
 
 --
@@ -133,7 +155,8 @@ CREATE TABLE `tipoUsuario` (
 
 INSERT INTO `tipoUsuario` (`id`, `descripcion`) VALUES
 (1, 'Administrador'),
-(2, 'Cliente');
+(2, 'Cliente'),
+(3, 'Cocinero');
 
 -- --------------------------------------------------------
 
@@ -157,10 +180,13 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `idTipoUsuario`, `name`, `email`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 1, 'Emiliano', 'emiliano@correo.com', '$2y$10$kxEHxdfcAxboShoKaMfsCuRq0pK/Wrc9WdQ4buPlL4et1KAD.iBDu', 'pckPmGzozEX8Sny2FwugsMHo6zOO6D6Zlic2aLiW9lxnWlS0Vnq9vw1AtbFn', '2018-03-01 06:36:30', '2018-04-24 08:27:37'),
-(2, 1, NULL, 'nuevo@correo.com', '$2y$10$YU.Sa/wc7krfkfbrxA2uw.jn7WQDs4oZ0BSjWGhsJs/ut54wg/ANa', 'JfPMNoAGuhlEeetjHwi2rPlgHg9rmspNZiLCEPf8Br2dzEMO9i95RXTZyNzA', '2018-04-19 07:07:23', '2018-04-19 07:07:58'),
-(3, 2, NULL, 'cliente@correo.com', '$2y$10$ZLF1Bt6/Wy.iGS4r2/EwQe0FF2LBTbT.oJX6RYq1gmrgqC0U4s56a', 'SYQQyvdpc5wvKqV2G5m2PqGAtR65rNsf8BNtybTXGUFu0za2kGMrEwyaolUM', '2018-04-19 07:15:10', '2018-04-24 08:27:23'),
-(4, 2, NULL, 'usuario@correo.com', '$2y$10$MfhFvPRe76xiPOCLx9Hbh.jwaOU2rWBWhsoThD1YJLl9dYL/NVy3S', NULL, '2018-04-19 07:46:48', '2018-04-19 07:46:48');
+(1, 1, 'Emiliano', 'emiliano@correo.com', '$2y$10$kxEHxdfcAxboShoKaMfsCuRq0pK/Wrc9WdQ4buPlL4et1KAD.iBDu', 'tmmghhCo6HdicXGCX1FsvkwAqtWma5NnCf3wfOJl1x83ZMZXZCPddqwrIUeg', '2018-03-01 06:36:30', '2018-05-10 06:18:50'),
+(2, 1, NULL, 'nuevo@correo.com', '$2y$10$YU.Sa/wc7krfkfbrxA2uw.jn7WQDs4oZ0BSjWGhsJs/ut54wg/ANa', 'vJjPDAGw3UIvIAb7iojxLGbA7r2864MS12VEFotZK6UjVCtegf8KIFTuffKN', '2018-04-19 07:07:23', '2018-05-10 06:18:03'),
+(3, 2, NULL, 'cliente@correo.com', '$2y$10$ZLF1Bt6/Wy.iGS4r2/EwQe0FF2LBTbT.oJX6RYq1gmrgqC0U4s56a', '3U4UBR6P63vvneHNM3TQgfeDi7MxRF3HByWm9bcULcimk7pP6kJza0mxr1Sk', '2018-04-19 07:15:10', '2018-05-10 06:25:05'),
+(4, 2, NULL, 'usuario@correo.com', '$2y$10$MfhFvPRe76xiPOCLx9Hbh.jwaOU2rWBWhsoThD1YJLl9dYL/NVy3S', NULL, '2018-04-19 07:46:48', '2018-04-19 07:46:48'),
+(5, 3, NULL, 'jorge@correo.com', '$2y$10$08HkBMvaE22/6r6DZGr35eGc1J5EtvKgJl0IaSI39KKQrthZcbETi', 'rYaJCqJ4it2XntnmzvV0HOrOVGX53jlQjj2VDnbUV39v9PfKD85QgFBEtOsb', '2018-05-10 05:57:03', '2018-05-10 06:22:59'),
+(6, 3, NULL, 'juan@correo.com', '$2y$10$rCGPW.m73204F3zP63sjq.kYzMszmPIMfZzY.5v4w3n0jebceyj22', NULL, '2018-05-10 05:57:23', '2018-05-10 05:57:23'),
+(7, 2, NULL, 'cliente2@correo.com', '$2y$10$aHRuDLEE07s.nE6mqMsRNOoW8wT9gXqLH9CyyugcT6CoH5a4chMDK', 'g3AQeIZGVM5CeK4Y8YcgArzsqfzd9cYCDHsiD4dKo5SUiaNdqBlqXjfxfhgF', '2018-05-10 06:18:47', '2018-05-10 06:19:17');
 
 --
 -- Índices para tablas volcadas
@@ -229,31 +255,31 @@ ALTER TABLE `comidas`
 -- AUTO_INCREMENT de la tabla `elementosPedido`
 --
 ALTER TABLE `elementosPedido`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `estadosPedido`
 --
 ALTER TABLE `estadosPedido`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `pedidos`
 --
 ALTER TABLE `pedidos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `tipoUsuario`
 --
 ALTER TABLE `tipoUsuario`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Restricciones para tablas volcadas
