@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 use App\Http\Requests;
 
@@ -22,8 +23,14 @@ class PedidoController extends Controller
     public function index(Request $request)
     {
         $usuario = $request->user();
+        if(Auth::user()->idTipoUsuario == 2){
         $pedidos = 
             \App\Pedido::where('idUsuario','=',$usuario->id)->get();
+        }
+        if(Auth::user()->idTipoUsuario == 3){
+        $pedidos = 
+            \App\Pedido::all();
+        }
         $estadosPedido = 
             \App\EstadoPedido::all()->pluck('descripcion','id');
         $argumentos = array();
@@ -110,7 +117,23 @@ class PedidoController extends Controller
      */
     public function edit($id)
     {
-        //
+        $pedido = \App\Pedido::find($id);
+        $cuentaCliente = \App\User::where('id','=',$pedido->idUsuario)->get();
+        $comidas = \App\Comida::all()->pluck('id','nombre');
+        $estadosPedidos = \App\EstadoPedido::all();
+        $elementosPedidos = \App\ElementoPedido::where('idPedido','=', $pedido->id)->get();
+        
+        $argumentos = array();
+        
+        $argumentos['pedido'] = $pedido;
+
+        $argumentos['cuentaCliente'] = $cuentaCliente;
+        $argumentos['comidas'] = $comidas;
+        $argumentos['estadosPedidos'] = $estadosPedidos;
+        $argumentos['elementosPedidos'] = $elementosPedidos;
+
+
+        return view('pedidos.edit',$argumentos);
     }
 
     /**
